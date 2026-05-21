@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -7,8 +8,25 @@ import Navigation from "@/components/Navigation";
 import FeaturedMovies from "@/components/FeaturedMovies";
 import PopularMovieCard from "@/components/Popular";
 import { ChevronRight } from "lucide-react";
-
+import axios from "axios";
+import { log } from "console";
+import { useState } from "react";
 export default function Home() {
+  const [movies, setMovies] = useState([]);
+
+  axios
+    .get("https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1", {
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMWEzMGNhOGU0YjkxMjUyOTc3Y2ZmYTY3MjA0YzcxYSIsIm5iZiI6MTc3OTI2NjY0OS41ODA5OTk5LCJzdWIiOiI2YTBkNzQ1OTAwYWE5OTc3NzMwYzBjZmEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0._45evHDlOZguNWt82rgCjZmxqgTHpuXCQjvxXuYHpyY",
+      },
+    })
+    .then((responce) => {
+      console.log("working....");
+      console.log(responce);
+      setMovies(responce.data.results);
+    });
+
   return (
     <div className="w-full h-full overflow-x-hidden">
       <Navigation />
@@ -30,60 +48,7 @@ export default function Home() {
           <div className="gap-8 flex flex-wrap mt-10 px-6 justify-center items-center">
             <MovieCard
               title="Dear Santa"
-              imageUrl="/card-image.png"
-              rating={8.8}
-            />
-            <MovieCard
-              title="How To Train Your Dragon Live Action"
-              imageUrl="/upcoming-img/dragon.png"
-              rating={8.8}
-            />
-
-            <MovieCard
-              title="Alien Romulus"
-              imageUrl="/upcoming-img/alien.png"
-              rating={8.8}
-            />
-
-            <MovieCard
-              title="From the Ashes"
-              imageUrl="/upcoming-img/ashes.png"
-              rating={8.8}
-            />
-
-            <MovieCard
-              title="Space Dogg"
-              imageUrl="/upcoming-img/space-dogg.png"
-              rating={8.8}
-            />
-
-            <MovieCard
-              title="The Order"
-              imageUrl="/upcoming-img/order.png"
-              rating={8.8}
-            />
-
-            <MovieCard
-              title="Y2K"
-              imageUrl="/upcoming-img/y2k.png"
-              rating={8.8}
-            />
-
-            <MovieCard
-              title="Solo Leveling: ReAwakening"
-              imageUrl="/upcoming-img/Solo-Leveling-ReAwakening.png"
-              rating={8.8}
-            />
-
-            <MovieCard
-              title="Get Away"
-              imageUrl="/upcoming-img/getaway.jpg"
-              rating={8.8}
-            />
-
-            <MovieCard
-              title="Sonic the Hedgehog 3"
-              imageUrl="/upcoming-img/sonic.png"
+              imageUrl="/upcoming-img/card-image.png"
               rating={8.8}
             />
           </div>

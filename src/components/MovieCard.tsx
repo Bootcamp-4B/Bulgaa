@@ -25,7 +25,7 @@ interface MovieCardProps {
 // };
 const MovieCard = (props: MovieCardProps) => {
   return (
-    <Card className="w-[250px] h-[480px] border-none px-0 py-0 bg-[#F4F4F5]">
+    <Card className="w-62.5 h-120 border-none px-0 py-0 bg-[#F4F4F5]">
       <CardContent className="px-0 py-0">
         <Image src={props.imageUrl} alt="card-image" width={250} height={340} />
         <div className="mt-2 p-[8]">
