@@ -24,12 +24,15 @@ const FeaturedMovies = () => {
 
   useEffect(() => {
     axios
-      .get("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMWEzMGNhOGU0YjkxMjUyOTc3Y2ZmYTY3MjA0YzcxYSIsIm5iZiI6MTc3OTI2NjY0OS41ODA5OTk5LCJzdWIiOiI2YTBkNzQ1OTAwYWE5OTc3NzMwYzBjZmEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0._45evHDlOZguNWt82rgCjZmxqgTHpuXCQjvxXuYHpyY",
+      .get(
+        "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMWEzMGNhOGU0YjkxMjUyOTc3Y2ZmYTY3MjA0YzcxYSIsIm5iZiI6MTc3OTI2NjY0OS41ODA5OTk5LCJzdWIiOiI2YTBkNzQ1OTAwYWE5OTc3NzMwYzBjZmEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0._45evHDlOZguNWt82rgCjZmxqgTHpuXCQjvxXuYHpyY",
+          },
         },
-      })
+      )
       .then((response) => {
         setFeaturedMovies(response.data.results);
       });
@@ -56,7 +59,7 @@ const FeaturedMovies = () => {
               <div className="relative z-10 flex items-center h-full px-20">
                 <div className="max-w-[450px] text-white">
                   <p className="text-2xl font-light mb-2">Now Playing:</p>
-                  <h1 className="text-7xl font-bold mb-4">{movie.title}</h1>
+                  <h1 className="text-5xl font-bold mb-4">{movie.title}</h1>
                   <div className="flex items-center gap-2 mb-6">
                     <span className="text-yellow-400 text-3xl">★</span>
                     <span className="text-2xl font-semibold">
