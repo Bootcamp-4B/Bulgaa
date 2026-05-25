@@ -16,7 +16,7 @@ let Navigation = () => {
       <div className="flex gap-3">
         <button className="flex items-center gap-1 border border-gray-300 rounded-md px-3 py-1">
           <ChevronDown />
-          Genre
+          Genress
         </button>
       <SearchBar/>
       </div>
