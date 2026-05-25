@@ -5,51 +5,66 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
-type FeaturedMoviesProps = {
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+type FeaturedMovie = {
+  id: number;
   title: string;
-  rating: number;
-  description: string;
-  imageUrl: string;
+  vote_average: number;
+  overview: string;
+  backdrop_path: string;
+  poster_path: string;
 };
-let FeaturedMovies = ({
-  title,
-  rating,
-  description,
-  imageUrl,
-}: FeaturedMoviesProps) => {
+
+const FeaturedMovies = () => {
+  const [featuredMovies, setFeaturedMovies] = useState<FeaturedMovie[]>([]);
+
+  useEffect(() => {
+    axios
+      .get("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMWEzMGNhOGU0YjkxMjUyOTc3Y2ZmYTY3MjA0YzcxYSIsIm5iZiI6MTc3OTI2NjY0OS41ODA5OTk5LCJzdWIiOiI2YTBkNzQ1OTAwYWE5OTc3NzMwYzBjZmEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0._45evHDlOZguNWt82rgCjZmxqgTHpuXCQjvxXuYHpyY",
+        },
+      })
+      .then((response) => {
+        setFeaturedMovies(response.data.results);
+      });
+  }, []);
+
   return (
     <Carousel className="w-full">
       <CarouselContent className="ml-0">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index} className="pl-0">
+        {featuredMovies.map((movie) => (
+          <CarouselItem key={movie.id} className="pl-0">
             <div className="relative w-full h-[720px] overflow-hidden">
               {/* Background Image */}
-              <div className="absolute inset-0">
-                <Image
-                  src={imageUrl}
-                  alt="feature"
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+                }}
+              />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-black/30" />
+              <div className="absolute inset-0 bg-black/50" />
 
               {/* Text Content */}
               <div className="relative z-10 flex items-center h-full px-20">
                 <div className="max-w-[450px] text-white">
                   <p className="text-2xl font-light mb-2">Now Playing:</p>
-                  <h1 className="text-7xl font-bold mb-4">{title}</h1>
+                  <h1 className="text-7xl font-bold mb-4">{movie.title}</h1>
                   <div className="flex items-center gap-2 mb-6">
                     <span className="text-yellow-400 text-3xl">★</span>
-                    <span className="text-2xl font-semibold">{rating}/10</span>
+                    <span className="text-2xl font-semibold">
+                      {movie.vote_average.toFixed(1)}/10
+                    </span>
                   </div>
                   <p className="text-lg leading-8 text-white/90 mb-8">
-                    {description}
+                    {movie.overview}
                   </p>
                   <Button className="bg-white text-black hover:bg-gray-200 px-6 py-6 text-lg">
                     <Play />
