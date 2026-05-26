@@ -299,7 +299,7 @@ interface MovieType {
     crew: {
       id: number;
       name: string;
-      job: string;        // "Writer", "Director" гэх мэт
+      job: string;       
     }[];
     cast: {
       id: number;
