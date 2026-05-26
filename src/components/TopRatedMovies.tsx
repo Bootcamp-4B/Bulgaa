@@ -11,8 +11,12 @@ interface MovieType {
   poster_path: string;
   vote_average: number;
 }
+interface MovieCardProps {
+  page?: number;
+}
 
-const TopRatedMovies = () => {
+
+const TopRatedMovies = ({page}:MovieCardProps) => {
   const [movies, setMovies] = useState<MovieType[]>([]);
 
   useEffect(() => {
@@ -29,7 +33,7 @@ const TopRatedMovies = () => {
       .then((response) => {
         setMovies(response.data.results);
       });
-  }, []);
+  }, [page]);
 
   return (
     <div className="grid grid-cols-5 gap-6 px-16 mt-10">

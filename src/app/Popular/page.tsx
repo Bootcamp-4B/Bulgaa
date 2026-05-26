@@ -11,6 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import PopularMovies from "@/components/PopularMovies";
 
 export default function Home() {
   const [page, setPage] = useState(1);
@@ -31,7 +32,7 @@ export default function Home() {
             </h2>
           </div>
         </div>
-        <MovieCard page={page} />
+        < PopularMovies page={page} />
 
         {/* Pagination */}
         <div className="flex justify-end mt-10 mb-16">

@@ -23,7 +23,9 @@ export default function Home() {
               Upcoming Movies
             </h2>
           </div>
-          <a className="flex items-center gap-1 text-sm uppercase tracking-widest text-gray-400 hover:text-gray-300 transition-colors">
+        
+          <a className="flex items-center gap-1 text-sm uppercase tracking-widest text-gray-400 hover:text-gray-300 transition-colors" href="/Upcoming
+          ">
             See more
             <ChevronRight size={16} />
           </a>
@@ -42,9 +44,11 @@ export default function Home() {
               Popular Movies
             </h2>
           </div>
-          <button className="flex items-center gap-1 text-sm uppercase tracking-widest text-gray-400 hover:text-white transition-colors">
-            See more <ChevronRight size={16} />
-          </button>
+         <a className="flex items-center gap-1 text-sm uppercase tracking-widest text-gray-400 hover:text-gray-300 transition-colors" href="/Popular
+          ">
+            See more
+            <ChevronRight size={16} />
+          </a>
         </div>
         <PopularMovies />
       </div>
@@ -60,9 +64,11 @@ export default function Home() {
               Top Rated Movies
             </h2>
           </div>
-          <button className="flex items-center gap-1 text-sm uppercase tracking-widest text-gray-400 hover:text-white transition-colors">
-            See more <ChevronRight size={16} />
-          </button>
+       <a className="flex items-center gap-1 text-sm uppercase tracking-widest text-gray-400 hover:text-gray-300 transition-colors" href="/TopRated
+          ">
+            See more
+            <ChevronRight size={16} />
+          </a>
         </div>
         <TopRatedMovies />
       </div>

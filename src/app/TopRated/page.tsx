@@ -11,6 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import TopRatedMovies from "@/components/TopRatedMovies";
 
 export default function Home() {
   const [page, setPage] = useState(1);
@@ -27,11 +28,11 @@ export default function Home() {
               What's next
             </p>
             <h2 className="text-4xl font-black uppercase tracking-tight">
-              Upcoming Movies
+          Top Rated
             </h2>
           </div>
         </div>
-        <MovieCard page={page} />
+        <TopRatedMovies page={page}/>
 
         {/* Pagination */}
         <div className="flex justify-end mt-10 mb-16">

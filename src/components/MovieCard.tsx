@@ -4,6 +4,7 @@ import { Card, CardContent } from "./ui/card";
 import { Star } from "lucide-react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface MovieType {
   id: number;
@@ -11,13 +12,16 @@ interface MovieType {
   poster_path: string;
   vote_average: number;
 }
+interface MovieCardProps {
+  page?: number;
+}
 
-const MovieCard = () => {
+const MovieCard = ({page}:MovieCardProps) => {
   const [movies, setMovies] = useState<MovieType[]>([]);
 
   useEffect(() => {
     axios
-      .get("https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1", {
+      .get("https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=  ", {
         headers: {
           Authorization:
             "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMWEzMGNhOGU0YjkxMjUyOTc3Y2ZmYTY3MjA0YzcxYSIsIm5iZiI6MTc3OTI2NjY0OS41ODA5OTk5LCJzdWIiOiI2YTBkNzQ1OTAwYWE5OTc3NzMwYzBjZmEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0._45evHDlOZguNWt82rgCjZmxqgTHpuXCQjvxXuYHpyY",
@@ -26,12 +30,13 @@ const MovieCard = () => {
       .then((response) => {
         setMovies(response.data.results);
       });
-  }, []);
+  }, [page]);
 
   return (
     <div className="grid grid-cols-5 gap-6 px-16 mt-10">
       {movies.map((movie) => (
-        <Card key={movie.id} className="border-none px-0 py-0 bg-[#F4F4F5]">
+        <Link href={`/${movie.id}`}>
+          <Card key={movie.id} className="border-none px-0 py-0 bg-[#F4F4F5]">
           <CardContent className="px-0 py-0">
             <Image
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -52,6 +57,8 @@ const MovieCard = () => {
             </div>
           </CardContent>
         </Card>
+        </Link>
+      
       ))}
     </div>
   );
