@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Play, Star, Stars } from "lucide-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -46,7 +46,7 @@ const FeaturedMovies = () => {
             <div className="relative w-full h-[720px] overflow-hidden">
               {/* Background Image */}
               <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                className="absolute inset-0 w-full h-screen min-h-[700px] bg-cover bg-center bg-no-repeat"
                 style={{
                   backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
                 }}
@@ -61,7 +61,7 @@ const FeaturedMovies = () => {
                   <p className="text-2xl font-light mb-2">Now Playing:</p>
                   <h1 className="text-5xl font-bold mb-4">{movie.title}</h1>
                   <div className="flex items-center gap-2 mb-6">
-                    <span className="text-yellow-400 text-3xl">★</span>
+                    <Star className="text-yellow-400 text-3xl" />
                     <span className="text-2xl font-semibold">
                       {movie.vote_average.toFixed(1)}/10
                     </span>
