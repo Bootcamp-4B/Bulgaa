@@ -1,41 +1,59 @@
 "use client";
 import Navigation from "@/components/Navigation";
 import FeaturedMovies from "@/components/FeaturedMovies";
-import MovieCard from "@/components/MovieCard";
-import { ChevronRight, Link } from "lucide-react";
-import PopularMovies from "@/components/PopularMovies";
-import TopRatedMovies from "@/components/TopRatedMovies";
-import GroupMovie
+import GroupMovie from "@/components/GroupMovie";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+export interface MovieType {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+const BEARER =
+  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMWEzMGNhOGU0YjkxMjUyOTc3Y2ZmYTY3MjA0YzcxYSIsIm5iZiI6MTc3OTI2NjY0OS41ODA5OTk5LCJzdWIiOiI2YTBkNzQ1OTAwYWE5OTc3NzMwYzBjZmEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0._45evHDlOZguNWt82rgCjZmxqgTHpuXCQjvxXuYHpyY";
+
+const fetchMovies = (category: string) =>
+  axios
+    .get(
+      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`,
+      {
+        headers: { Authorization: BEARER },
+      },
+    )
+    .then((res) => res.data.results);
 
 export default function Home() {
+  const [upcoming, setUpcoming] = useState<MovieType[]>([]);
+  const [topRated, setTopRated] = useState<MovieType[]>([]);
+  const [popular, setPopular] = useState<MovieType[]>([]);
+
+  useEffect(() => {
+    fetchMovies("upcoming").then(setUpcoming);
+    fetchMovies("top_rated").then(setTopRated);
+    fetchMovies("popular").then(setPopular);
+  }, []);
+
   return (
     <div className="w-full h-full overflow-x-hidden">
       <Navigation />
       <FeaturedMovies />
-
-      {/* Upcoming Movies */}
       <div className="w-full px-16 mt-12">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-gray-400 mb-1">
-              What's next
-            </p>
-            <h2 className="text-4xl font-black uppercase tracking-tight">
-              Upcoming Movies
-            </h2>
-          </div>
-
-          <a
-            className="flex items-center gap-1 text-sm uppercase tracking-widest text-gray-400 hover:text-gray-300 transition-colors"
-            href="/Upcoming
-          "
-          >
-            See more
-            <ChevronRight size={16} />
-          </a>
-        </div>
-        <GroupMovie title="upcoming" />
-        <GroupMovie></GroupMovie>
+        <GroupMovie title="Upcoming" movies={upcoming} href="/Upcoming" />
+        <GroupMovie title="Top Rated" movies={topRated} href="/TopRated" />
+        <GroupMovie title="Popular" movies={popular} href="/Popular" />
       </div>
     </div>
   );

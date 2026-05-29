@@ -4,8 +4,8 @@ import axios from "axios";
 
 interface SearchResult {
   id: number;
-  title?: string;       // movie
-  name?: string;        // tv/person
+  title?: string; // movie
+  name?: string; // tv/person
   poster_path?: string;
   media_type: string;
   vote_average?: number;
@@ -22,7 +22,6 @@ const SearchBar = () => {
       return;
     }
 
-    // Хэрэглэгч бичих бүрт 500ms хүлээгээд API дуудна (debounce)
     const delayDebounce = setTimeout(() => {
       axios
         .get(
@@ -32,7 +31,7 @@ const SearchBar = () => {
               Authorization:
                 "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMWEzMGNhOGU0YjkxMjUyOTc3Y2ZmYTY3MjA0YzcxYSIsIm5iZiI6MTc3OTI2NjY0OS41ODA5OTk5LCJzdWIiOiI2YTBkNzQ1OTAwYWE5OTc3NzMwYzBjZmEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0._45evHDlOZguNWt82rgCjZmxqgTHpuXCQjvxXuYHpyY",
             },
-          }
+          },
         )
         .then((response) => {
           setResults(response.data.results);
@@ -75,7 +74,9 @@ const SearchBar = () => {
               )}
               <div>
                 <p className="font-medium text-sm">{item.title || item.name}</p>
-                <p className="text-xs text-gray-400 capitalize">{item.media_type}</p>
+                <p className="text-xs text-gray-400 capitalize">
+                  {item.media_type}
+                </p>
               </div>
             </div>
           ))}
