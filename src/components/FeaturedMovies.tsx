@@ -15,8 +15,8 @@ type FeaturedMovie = {
   title: string;
   vote_average: number;
   overview: string;
-  backdrop_path: string;
-  poster_path: string;
+  backdrop_path: string | null;
+  poster_path: string | null;
 };
 
 const FeaturedMovies = () => {
@@ -48,7 +48,9 @@ const FeaturedMovies = () => {
               <div
                 className="absolute inset-0 w-full h-screen min-h-[700px] bg-cover bg-center bg-no-repeat"
                 style={{
-                  backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+                  backgroundImage: movie.backdrop_path
+                    ? `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`
+                    : undefined,
                 }}
               />
 
