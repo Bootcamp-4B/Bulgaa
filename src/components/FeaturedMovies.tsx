@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Play, Star, Stars } from "lucide-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { tmdbHeaders } from "@/lib/tmdb";
 
 type FeaturedMovie = {
   id: number;
@@ -27,10 +28,7 @@ const FeaturedMovies = () => {
       .get(
         "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
         {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMWEzMGNhOGU0YjkxMjUyOTc3Y2ZmYTY3MjA0YzcxYSIsIm5iZiI6MTc3OTI2NjY0OS41ODA5OTk5LCJzdWIiOiI2YTBkNzQ1OTAwYWE5OTc3NzMwYzBjZmEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0._45evHDlOZguNWt82rgCjZmxqgTHpuXCQjvxXuYHpyY",
-          },
+          headers: tmdbHeaders,
         },
       )
       .then((response) => {

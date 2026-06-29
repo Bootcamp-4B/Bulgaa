@@ -4,6 +4,7 @@ import FeaturedMovies from "@/components/FeaturedMovies";
 import GroupMovie from "@/components/GroupMovie";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { tmdbHeaders } from "@/lib/tmdb";
 
 export interface MovieType {
   adult: boolean;
@@ -22,15 +23,12 @@ export interface MovieType {
   vote_count: number;
 }
 
-const BEARER =
-  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMWEzMGNhOGU0YjkxMjUyOTc3Y2ZmYTY3MjA0YzcxYSIsIm5iZiI6MTc3OTI2NjY0OS41ODA5OTk5LCJzdWIiOiI2YTBkNzQ1OTAwYWE5OTc3NzMwYzBjZmEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0._45evHDlOZguNWt82rgCjZmxqgTHpuXCQjvxXuYHpyY";
-
 const fetchMovies = (category: string) =>
   axios
     .get(
       `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`,
       {
-        headers: { Authorization: BEARER },
+        headers: tmdbHeaders,
       },
     )
     .then((res) => res.data.results);
@@ -39,6 +37,7 @@ export default function Home() {
   const [upcoming, setUpcoming] = useState<MovieType[]>([]);
   const [topRated, setTopRated] = useState<MovieType[]>([]);
   const [popular, setPopular] = useState<MovieType[]>([]);
+  const [nowPlaying, setNowPlaying] = useState<MovieType[]>([]); // ✅ нэмэгдсэн
 
   useEffect(() => {
     fetchMovies("upcoming").then(setUpcoming);
@@ -51,9 +50,17 @@ export default function Home() {
       <Navigation />
       <FeaturedMovies />
       <div className="w-full px-16 mt-12">
-        <GroupMovie title="Upcoming" movies={upcoming} href="/Upcoming" />
-        <GroupMovie title="Top Rated" movies={topRated} href="/TopRated" />
-        <GroupMovie title="Popular" movies={popular} href="/Popular" />
+        <GroupMovie title="Popular" movies={popular} href="/movies/popular" />
+        <GroupMovie
+          title="Top Rated"
+          movies={topRated}
+          href="/movies/top-rated"
+        />
+        <GroupMovie
+          title="Upcoming"
+          movies={upcoming}
+          href="/movies/upcoming"
+        />
       </div>
     </div>
   );
