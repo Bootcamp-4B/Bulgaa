@@ -6,7 +6,7 @@ import Navigation from "@/components/Navigation";
 import Image from "next/image";
 import { ChevronRight, Star, Clock, Calendar } from "lucide-react";
 import TrailerButton from "@/components/TrailerButton";
-import MovieCard from "@/components/MovieCard"; // ✅ нэмэгдсэн
+import MovieCard from "@/components/MovieCard";
 import { tmdbHeaders } from "@/lib/tmdb";
 
 interface Genre {
@@ -23,11 +23,10 @@ interface MovieType {
   runtime: number;
   vote_average: number;
   poster_path: string | null;
-  backdrop_path: string | null;
+  backdrop_path: string;
   genres: Genre[];
 }
 
-// ✅ нэмэгдсэн
 interface SimilarMovie {
   id: number;
   title: string;
@@ -75,7 +74,7 @@ const Detail = () => {
   const [cast, setCast] = useState<CastMember[]>([]);
   const [directors, setDirectors] = useState<CrewMember[]>([]);
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
-  const [similarMovies, setSimilarMovies] = useState<SimilarMovie[]>([]); // ✅ нэмэгдсэн
+  const [similarMovies, setSimilarMovies] = useState<SimilarMovie[]>([]);
 
   useEffect(() => {
     axios
@@ -111,7 +110,6 @@ const Detail = () => {
       });
   }, [params.id]);
 
-  // ✅ Similar movies fetch нэмэгдсэн
   useEffect(() => {
     axios
       .get(
@@ -253,7 +251,7 @@ const Detail = () => {
           </section>
         )}
 
-        {/* ✅ MORE LIKE THIS — бодит өгөгдөлтэй */}
+        {/* MORE LIKE THIS */}
         <section>
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold tracking-tight">More Like This</h2>
@@ -261,7 +259,13 @@ const Detail = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {similarMovies.length > 0
               ? similarMovies.map((movie) => (
-                  <MovieCard key={movie.id} movie={movie} />
+                  <MovieCard
+                    key={movie.id}
+                    movie={{
+                      ...movie,
+                      backdrop_path: movie.backdrop_path ?? "",
+                    }}
+                  />
                 ))
               : Array.from({ length: 5 }).map((_, i) => (
                   <div
