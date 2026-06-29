@@ -264,6 +264,7 @@ const Detail = () => {
                     movie={{
                       ...movie,
                       backdrop_path: movie.backdrop_path ?? "",
+                      poster_path: movie.poster_path ?? "",
                     }}
                   />
                 ))
